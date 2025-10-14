@@ -31,7 +31,7 @@ Interactive web-based testing suite for comparing **ntrpRNG** (behavioral entrop
 
 2. **Open in browser:**
    ```
-   Open rng_comparison_test_v2.0.html in your browser
+   Open testsuite.html in your browser
    ```
 
 3. **Run test:**
