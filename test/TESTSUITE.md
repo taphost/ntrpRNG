@@ -23,7 +23,7 @@ Interactive web-based testing suite for comparing **ntrpRNG** (behavioral entrop
 
 1. **Download files:**
    ```
-   rng_comparison_test_v2.0.html
+   testsuite.html
    ntrpRNG.js
    cgRNDV.js
    ntrpRNGDev.js
