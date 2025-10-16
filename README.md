@@ -37,7 +37,7 @@ It collects timing and behavioral noise, applies multi-stage hashing, and mainta
 - **Export name**: `window.ntrpRng` → `window.ntrpRNG`
 - **Weighted event counting**: keyboard=3, mouse_down/touch/motion=2, move/scroll=1
 - **Non-deterministic seeds**: Path B introduces fresh randomness on every generation
-- See [CHANGELOG.md](CHANGELOG.md) for migration guide
+- See [CHANGELOG.md](docs/CHANGELOG.md) for migration guide
 
 ## Features
 
