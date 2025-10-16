@@ -1,7 +1,7 @@
 # ntrpRNG
 
 ### Cryptographically Secure Seed Generator
-
+---
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)]()
 
