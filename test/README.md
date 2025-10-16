@@ -1,4 +1,4 @@
-# RNG Comparison Test Suite V 1.0
+# RNG Comparison Test Suite
 
 Interactive web-based testing suite for comparing **ntrpRNG** (behavioral entropy) vs **cgRNDV** (pure crypto) random number generators.
 
@@ -23,7 +23,7 @@ Interactive web-based testing suite for comparing **ntrpRNG** (behavioral entrop
 
 1. **Download files:**
    ```
-   testsuite.html
+   rng_comparison_test.html
    ntrpRNG.js
    cgRNDV.js
    ntrpRNGDev.js
@@ -31,7 +31,7 @@ Interactive web-based testing suite for comparing **ntrpRNG** (behavioral entrop
 
 2. **Open in browser:**
    ```
-   Open testsuite.html in your browser
+   Open rng_comparison_test.html in your browser
    ```
 
 3. **Run test:**
@@ -261,7 +261,3 @@ For issues or questions:
 MIT License - See individual library files for details
 
 ---
-
-**Version:** 2.0  
-**Last Updated:** October 2024  
-**Dependencies:** ntrpRNG.js, cgRNDV.js, ntrpRNGDev.js v1.4.0+

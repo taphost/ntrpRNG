@@ -2,11 +2,29 @@
  * cgRNDV.js - Lightweight baseline RNG wrapper based on crypto.getRandomValues()
  * 
  * Provides a compatible API with ntrpRNG.js for comparison purposes.
- * Uses only crypto.getRandomValues() as the entropy source, without
+ * Uses ONLY crypto.getRandomValues() as the entropy source, without
  * behavioral entropy collection or iterative hashing.
  * 
- * @version 1.0.0
+ * IMPORTANT: This is a pure wrapper around crypto.getRandomValues().
+ * Do NOT add:
+ * - Integrity checks or security validation
+ * - Hardcoded minEvents requirements
+ * - Event collection or entropy pooling
+ * - Global constants for validation
+ * - Any complexity beyond direct crypto.getRandomValues() calls
+ * 
+ * Purpose: Baseline comparison tool to demonstrate performance difference
+ * between hardware RNG and ntrpRNG's behavioral entropy collection.
+ * 
+ * @version 1.1.0
  * @license MIT
+ * 
+ * CHANGELOG:
+ * v1.1.0 - Added getProgress() method for API compatibility with ntrpRNG 1.3.0
+ *        - Maintains simple crypto.getRandomValues() wrapper design
+ * v1.0.0 - Initial release
+ *        - Basic crypto.getRandomValues() wrapper
+ *        - API compatibility with ntrpRNG 1.2.1
  */
 
 class cgRNDV {
@@ -139,6 +157,20 @@ class cgRNDV {
   }
   
   /**
+   * Get progress toward minimum entropy requirement
+   * For cgRNDV, always returns 100% ready (no collection needed)
+   * @returns {Object} Progress information
+   */
+  getProgress() {
+    return {
+      currentEvents: 0,          // Always 0 (no collection)
+      requiredEvents: 0,         // No requirement
+      percentage: 100,           // Always ready
+      ready: true                // Always true
+    };
+  }
+  
+  /**
    * Get statistics about entropy collection
    * @returns {Object} Statistics
    */
@@ -168,7 +200,6 @@ class cgRNDV {
       other: 0
     };
   }
-  
 }
 
 // Export for ES modules

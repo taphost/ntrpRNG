@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RNG Comparison - ntrpRNG vs cgRNDV v 1.0</title>
+  <title>RNG Comparison - ntrpRNG vs cgRNDV v1.1</title>
   <style>
     * {
       margin: 0;
@@ -16,7 +16,7 @@
       color: #00ff41;
       padding: 20px;
       line-height: 1.6;
-      font-size: 1.25em; /* Increase base font size */
+      font-size: 1.25em;
     }
     .container {
       max-width: 1200px;
@@ -204,21 +204,30 @@
     }
     .result-row {
       display: grid;
-      grid-template-columns: 180px 1fr 80px;
-      gap: 10px;
+      grid-template-columns: 140px 1fr 90px;
+      gap: 8px;
       margin: 10px 0;
       padding: 8px;
       background: #1a1f2e;
       border-radius: 4px;
+      align-items: center;
     }
     .result-label {
       font-weight: bold;
-      font-size: 12px;
+      font-size: 11px;
+      word-wrap: break-word;
     }
     .result-value {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
       text-align: center;
+    }
+    .result-quality {
+      font-size: 10px;
+      text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .result-good {
       color: #00ff41;
@@ -333,6 +342,7 @@
       gap: 15px;
       text-align: center;
       font-size: 12px;
+      margin-bottom: 15px;
     }
     .entropy-stat {
       padding: 10px;
@@ -350,6 +360,37 @@
     .entropy-stat-label {
       color: #88ff88;
       font-size: 11px;
+    }
+    .entropy-breakdown {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .entropy-type {
+      padding: 8px;
+      background: #0a0e27;
+      border-radius: 4px;
+      border: 1px solid #00ff41;
+      text-align: center;
+    }
+    .entropy-type-label {
+      font-size: 10px;
+      color: #88ff88;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .entropy-type-value {
+      font-size: 16px;
+      font-weight: bold;
+      color: #00ff41;
+      display: block;
+    }
+    .entropy-type-weight {
+      font-size: 9px;
+      color: #ffaa00;
+      display: block;
+      margin-top: 2px;
     }
     .entropy-message {
       text-align: center;
@@ -374,48 +415,130 @@
     .entropy-notice.hidden {
       display: none;
     }
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: help;
+      color: #ffaa00;
+      margin-left: 5px;
+    }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 300px;
+      background-color: #1a1f2e;
+      color: #00ff41;
+      text-align: left;
+      border-radius: 4px;
+      padding: 10px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -150px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      border: 1px solid #00ff41;
+      font-size: 11px;
+      line-height: 1.4;
+    }
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
 
     @media (max-width: 768px) {
       body {
         padding: 10px;
+        font-size: 1em;
       }
       .container {
         padding: 15px;
       }
+      h1 {
+        font-size: 18px;
+        letter-spacing: 1px;
+      }
+      .subtitle {
+        font-size: 11px;
+      }
       .rng-selector,
       .quick-settings,
       .settings-grid,
-      .results-comparison,
-      .entropy-stats {
+      .results-comparison {
         grid-template-columns: 1fr;
+      }
+      .entropy-stats,
+      .entropy-breakdown {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .entropy-breakdown .entropy-type:last-child {
+        grid-column: span 2;
       }
       .result-row {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 5px;
       }
       .result-label {
-        grid-row: 1;
+        font-size: 12px;
       }
       .result-value {
-        grid-row: 2;
-        font-size: 18px;
+        font-size: 16px;
       }
-      .result-good, .result-fair, .result-poor {
-        grid-row: 3;
+      .result-quality {
+        font-size: 11px;
+        text-align: center;
+      }
+      .rng-btn, .quick-btn {
+        font-size: 12px;
+        padding: 10px;
+      }
+      .main-btn {
+        font-size: 14px;
+      }
+      input, select {
+        font-size: 12px;
+      }
+      label {
+        font-size: 12px;
+      }
+      .tooltip .tooltiptext {
+        width: 250px;
+        margin-left: -125px;
+        font-size: 10px;
+      }
+      .entropy-bar-text {
+        font-size: 14px;
+      }
+      .entropy-title {
+        font-size: 14px;
+      }
+      .info-content {
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        font-size: 0.9em;
       }
       h1 {
-        font-size: 20px;
+        font-size: 16px;
       }
-      .subtitle {
-        font-size: 12px;
+      .entropy-stats,
+      .entropy-breakdown {
+        grid-template-columns: 1fr;
+      }
+      .entropy-breakdown .entropy-type:last-child {
+        grid-column: span 1;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>⚡ RNG Comparison Test Suite v 1.0 ⚡</h1>
-    <div class="subtitle">Compare ntrpRNG (Behavioral) vs cgRNDV (Pure Crypto) - Now with Chi-Square, Serial Correlation & Avalanche Tests</div>
+    <h1>⚡ RNG Comparison Test Suite v1.1⚡</h1>
+    <div class="subtitle">Compare ntrpRNG (Behavioral) vs cgRNDV (Pure Crypto) - Enhanced with Weighted Event Tracking</div>
     
     <div class="rng-selector">
       <button class="rng-btn active" data-mode="ntrpRNG" onclick="selectRNG('ntrpRNG')">🎯 ntrpRNG Only</button>
@@ -445,19 +568,57 @@
     </div>
 
     <div id="entropyNotice" class="entropy-notice">
-      💡 ntrpRNG requires full entropy pool (5000 events) - move your mouse actively!
+      💡 ntrpRNG requires 500 weighted events (~5-10s interaction)
+      <span class="tooltip">ℹ️
+        <span class="tooltiptext">
+          <strong>Event Weights:</strong><br>
+          • Keyboard: ×3 (high entropy)<br>
+          • Mouse Down/Touch/Motion: ×2<br>
+          • Mouse Move/Scroll: ×1<br><br>
+          Example: 100 keyboard + 200 mouse = 500 weighted events
+        </span>
+      </span>
     </div>
     
     <div id="entropyCollector" class="entropy-collector">
-      <div class="entropy-title">🎯 Collecting Entropy - Keep Moving Your Mouse!</div>
+      <div class="entropy-title">🎯 Collecting Entropy - Interact With Page!</div>
       <div class="entropy-bar-container">
         <div id="entropyBarFill" class="entropy-bar-fill"></div>
-        <div id="entropyBarText" class="entropy-bar-text">0 / 5000</div>
+        <div id="entropyBarText" class="entropy-bar-text">0 / 500</div>
       </div>
+      
+      <div class="entropy-breakdown">
+        <div class="entropy-type">
+          <span class="entropy-type-label">KEYBOARD</span>
+          <span id="eventKeyboard" class="entropy-type-value">0</span>
+          <span class="entropy-type-weight">weight: ×3</span>
+        </div>
+        <div class="entropy-type">
+          <span class="entropy-type-label">MOUSE</span>
+          <span id="eventMouse" class="entropy-type-value">0</span>
+          <span class="entropy-type-weight">weight: ×1-2</span>
+        </div>
+        <div class="entropy-type">
+          <span class="entropy-type-label">TOUCH</span>
+          <span id="eventTouch" class="entropy-type-value">0</span>
+          <span class="entropy-type-weight">weight: ×1-2</span>
+        </div>
+        <div class="entropy-type">
+          <span class="entropy-type-label">SCROLL</span>
+          <span id="eventScroll" class="entropy-type-value">0</span>
+          <span class="entropy-type-weight">weight: ×1</span>
+        </div>
+        <div class="entropy-type">
+          <span class="entropy-type-label">OTHER</span>
+          <span id="eventOther" class="entropy-type-value">0</span>
+          <span class="entropy-type-weight">weight: ×2</span>
+        </div>
+      </div>
+      
       <div class="entropy-stats">
         <div class="entropy-stat">
-          <span id="entropyPoolSize" class="entropy-stat-value">0</span>
-          <span class="entropy-stat-label">Pool Events</span>
+          <span id="entropyWeighted" class="entropy-stat-value">0</span>
+          <span class="entropy-stat-label">Weighted Events</span>
         </div>
         <div class="entropy-stat">
           <span id="entropyRate" class="entropy-stat-value">0</span>
@@ -468,7 +629,7 @@
           <span class="entropy-stat-label">Est. Time</span>
         </div>
       </div>
-      <div id="entropyMessage" class="entropy-message">Move your mouse around the screen!</div>
+      <div id="entropyMessage" class="entropy-message">💡 Tip: Use keyboard for fastest collection (×3 weight)</div>
     </div>
     
     <button class="main-btn" id="startBtn" onclick="runTest()">Start Test</button>
@@ -481,7 +642,7 @@
           <div id="progressFill" class="progress-fill"></div>
         </div>
       </div>
-    <div id="resultContainer"></div>
+      <div id="resultContainer"></div>
     </div>
     
     <div class="info" id="infoBox">
@@ -490,23 +651,38 @@
       </div>
       <div class="info-content">
         <strong>RNG Types:</strong><br>
-        • <strong>ntrpRNG</strong>: Behavioral entropy + crypto.getRandomValues() + salt + iterative hashing<br>
-        • <strong>cgRNDV</strong>: Pure crypto.getRandomValues() only (no behavioral entropy, no salt, no iterations)<br>
+        • <strong>ntrpRNG v1.3.0</strong>: Behavioral entropy (weighted events) + crypto.getRandomValues() + salt + 5000 iterations<br>
+        • <strong>cgRNDV v1.1.0</strong>: Pure crypto.getRandomValues() only<br>
         • <strong>Compare Both</strong>: Side-by-side statistical comparison<br><br>
+        
+        <strong>Weighted Event System (ntrpRNG):</strong><br>
+        • <strong>Keyboard events</strong>: ×3 weight (highest entropy: timing + key choice)<br>
+        • <strong>Mouse down/Touch/Motion</strong>: ×2 weight (medium entropy)<br>
+        • <strong>Mouse move/Scroll</strong>: ×1 weight (basic entropy)<br>
+        • <strong>Target</strong>: 500 weighted events (hardcoded for security)<br>
+        • <strong>Example</strong>: 100 keyboard + 100 mouse down + 100 mouse move = 100×3 + 100×2 + 100×1 = 600 weighted events ✓<br><br>
+        
         <strong>Quick Settings:</strong><br>
-        • <strong>FAST</strong>: 1K iterations, 1s collection (testing/dev)<br>
-        • <strong>BALANCED</strong>: 5K iterations, 3s collection (recommended)<br>
-        • <strong>SECURE</strong>: 10K iterations, 5s collection (production)<br><br>
+        • <strong>FAST</strong>: 1K iterations (testing/dev)<br>
+        • <strong>BALANCED</strong>: 5K iterations (recommended)<br>
+        • <strong>SECURE</strong>: 10K iterations (production)<br><br>
+        
         <strong>Parameter Ranges:</strong><br>
         • <strong>Dataset Size (KB)</strong>: 1 - 10240<br>
         • <strong>Hash Iterations</strong>: 100 - 50000<br>
         • <strong>Salt Size (bytes)</strong>: 16 - 128<br><br>
+        
         <strong>Test Quality Scales:</strong><br>
         • Shannon Entropy: 7.9-8.0=Excellent | 7.5-7.9=Good | 7.0-7.5=Fair | <7.0=Poor<br>
         • Monobit/Runs: 0-1.0=Excellent | 1.0-2.0=Good | 2.0-3.0=Fair | >3.0=Poor<br>
         • Chi-Square: <250=Excellent | 250-293.25=Good | 293.25-350=Fair | >350=Poor<br>
         • Serial Correlation: <0.05=Excellent | 0.05-0.1=Good | 0.1-0.2=Fair | >0.2=Poor<br>
-        • Avalanche Effect: 45-55%=Excellent | 40-60%=Good | 35-65%=Fair | else=Poor
+        • Avalanche Effect: 45-55%=Excellent | 40-60%=Good | 35-65%=Fair | else=Poor<br><br>
+        
+        <strong>Security Notes:</strong><br>
+        • ntrpRNG v1.3.0 uses hardcoded 500 minimum events (cannot be overridden)<br>
+        • Dual-path XOR fortification mixes behavioral + CSPRNG entropy<br>
+        • Asynchronous batching prevents UI blocking during 5000 iterations
       </div>
     </div>
   </div>
@@ -518,18 +694,9 @@
     let currentMode = 'ntrpRNG';
 
     const presets = {
-      fast: {
-        iterations: 1000,
-        saltSize: 32
-      },
-      balanced: {
-        iterations: 5000,
-        saltSize: 32
-      },
-      secure: {
-        iterations: 10000,
-        saltSize: 64
-      }
+      fast: { iterations: 1000, saltSize: 32 },
+      balanced: { iterations: 5000, saltSize: 32 },
+      secure: { iterations: 10000, saltSize: 64 }
     };
 
     function selectRNG(mode) {
@@ -634,31 +801,31 @@
           <div class="result-row">
             <div class="result-label">Shannon Entropy:</div>
             <div class="result-value ${shannonQ.class}">${results.shannonEntropy.value}</div>
-            <div class="${shannonQ.class}">${shannonQ.label}</div>
+            <div class="result-quality ${shannonQ.class}">${shannonQ.label}</div>
           </div>
           
           <div class="result-row">
             <div class="result-label">Monobit Test:</div>
             <div class="result-value ${monobitQ.class}">${results.monobitTest.value}</div>
-            <div class="${monobitQ.class}">${monobitQ.label}</div>
+            <div class="result-quality ${monobitQ.class}">${monobitQ.label}</div>
           </div>
           
           <div class="result-row">
             <div class="result-label">Runs Test:</div>
             <div class="result-value ${runsQ.class}">${results.runsTest.value}</div>
-            <div class="${runsQ.class}">${runsQ.label}</div>
+            <div class="result-quality ${runsQ.class}">${runsQ.label}</div>
           </div>
           
           <div class="result-row">
             <div class="result-label">Chi-Square Test:</div>
             <div class="result-value ${chiSquareQ.class}">${results.chiSquareTest.value}</div>
-            <div class="${chiSquareQ.class}">${chiSquareQ.label}</div>
+            <div class="result-quality ${chiSquareQ.class}">${chiSquareQ.label}</div>
           </div>
           
           <div class="result-row">
             <div class="result-label">Serial Correlation:</div>
             <div class="result-value ${serialCorrQ.class}">${results.serialCorrelationTest.value}</div>
-            <div class="${serialCorrQ.class}">${serialCorrQ.label}</div>
+            <div class="result-quality ${serialCorrQ.class}">${serialCorrQ.label}</div>
           </div>
       `;
       
@@ -669,7 +836,7 @@
           <div class="result-row">
             <div class="result-label">Avalanche Effect:</div>
             <div class="result-value ${avalancheQ.class}">${avalancheResults.meanAvalanche}</div>
-            <div class="${avalancheQ.class}">${avalancheQ.label}</div>
+            <div class="result-quality ${avalancheQ.class}">${avalancheQ.label}</div>
           </div>
         `;
       }
@@ -730,37 +897,37 @@
             <div class="result-row">
               <div class="result-label">Shannon ${sWinner === 'ntrpRNG' ? '🏆' : ''}:</div>
               <div class="result-value ${sq1.class}">${results1.shannonEntropy.value}</div>
-              <div class="${sq1.class}">${sq1.label}</div>
+              <div class="result-quality ${sq1.class}">${sq1.label}</div>
             </div>
             
             <div class="result-row">
               <div class="result-label">Monobit ${mWinner === 'ntrpRNG' ? '🏆' : ''}:</div>
               <div class="result-value ${mq1.class}">${results1.monobitTest.value}</div>
-              <div class="${mq1.class}">${mq1.label}</div>
+              <div class="result-quality ${mq1.class}">${mq1.label}</div>
             </div>
             
             <div class="result-row">
               <div class="result-label">Runs ${rWinner === 'ntrpRNG' ? '🏆' : ''}:</div>
               <div class="result-value ${rq1.class}">${results1.runsTest.value}</div>
-              <div class="${rq1.class}">${rq1.label}</div>
+              <div class="result-quality ${rq1.class}">${rq1.label}</div>
             </div>
             
             <div class="result-row">
               <div class="result-label">Chi-Square ${cWinner === 'ntrpRNG' ? '🏆' : ''}:</div>
               <div class="result-value ${cq1.class}">${results1.chiSquareTest.value}</div>
-              <div class="${cq1.class}">${cq1.label}</div>
+              <div class="result-quality ${cq1.class}">${cq1.label}</div>
             </div>
             
             <div class="result-row">
               <div class="result-label">Serial Corr ${scWinner === 'ntrpRNG' ? '🏆' : ''}:</div>
               <div class="result-value ${scq1.class}">${results1.serialCorrelationTest.value}</div>
-              <div class="${scq1.class}">${scq1.label}</div>
+              <div class="result-quality ${scq1.class}">${scq1.label}</div>
             </div>
             
             <div class="result-row">
               <div class="result-label">Avalanche ${aWinner === 'ntrpRNG' ? '🏆' : ''}:</div>
               <div class="result-value ${aq1.class}">${avalanche1.meanAvalanche}</div>
-              <div class="${aq1.class}">${aq1.label}</div>
+              <div class="result-quality ${aq1.class}">${aq1.label}</div>
             </div>
             
             <p style="margin-top: 15px; font-size: 12px;"><strong>Duration:</strong> ${results1.duration}</p>
@@ -772,37 +939,37 @@
             <div class="result-row">
               <div class="result-label">Shannon ${sWinner === 'cgRNDV' ? '🏆' : ''}:</div>
               <div class="result-value ${sq2.class}">${results2.shannonEntropy.value}</div>
-              <div class="${sq2.class}">${sq2.label}</div>
+              <div class="result-quality ${sq2.class}">${sq2.label}</div>
             </div>
             
             <div class="result-row">
               <div class="result-label">Monobit ${mWinner === 'cgRNDV' ? '🏆' : ''}:</div>
               <div class="result-value ${mq2.class}">${results2.monobitTest.value}</div>
-              <div class="${mq2.class}">${mq2.label}</div>
+              <div class="result-quality ${mq2.class}">${mq2.label}</div>
             </div>
             
             <div class="result-row">
               <div class="result-label">Runs ${rWinner === 'cgRNDV' ? '🏆' : ''}:</div>
               <div class="result-value ${rq2.class}">${results2.runsTest.value}</div>
-              <div class="${rq2.class}">${rq2.label}</div>
+              <div class="result-quality ${rq2.class}">${rq2.label}</div>
             </div>
             
             <div class="result-row">
               <div class="result-label">Chi-Square ${cWinner === 'cgRNDV' ? '🏆' : ''}:</div>
               <div class="result-value ${cq2.class}">${results2.chiSquareTest.value}</div>
-              <div class="${cq2.class}">${cq2.label}</div>
+              <div class="result-quality ${cq2.class}">${cq2.label}</div>
             </div>
             
             <div class="result-row">
               <div class="result-label">Serial Corr ${scWinner === 'cgRNDV' ? '🏆' : ''}:</div>
               <div class="result-value ${scq2.class}">${results2.serialCorrelationTest.value}</div>
-              <div class="${scq2.class}">${scq2.label}</div>
+              <div class="result-quality ${scq2.class}">${scq2.label}</div>
             </div>
             
             <div class="result-row">
               <div class="result-label">Avalanche ${aWinner === 'cgRNDV' ? '🏆' : ''}:</div>
               <div class="result-value ${aq2.class}">${avalanche2.meanAvalanche}</div>
-              <div class="${aq2.class}">${aq2.label}</div>
+              <div class="result-quality ${aq2.class}">${aq2.label}</div>
             </div>
             
             <p style="margin-top: 15px; font-size: 12px;"><strong>Duration:</strong> ${results2.duration}</p>
@@ -835,42 +1002,42 @@
           updateStatus('Testing ntrpRNG', 'Initializing...', 5);
           
           const rng1 = new ntrpRNG({ 
-            minEvents: 5000,
+            minEvents: 500,
             autoCollect: true,
             iterations: iterations,
             saltSize: saltSize
           });
           const dev1 = new ntrpRNGDev(rng1);
           
-          // Show entropy collector
           const collector = document.getElementById('entropyCollector');
           collector.classList.add('active');
           
-          // Monitor entropy pool
-          const TARGET_EVENTS = 5000;
+          const TARGET_EVENTS = 500;
           let startTime = Date.now();
           let lastEventCount = 0;
-          let currentRate = 0;
           
           const monitorInterval = setInterval(() => {
+            const progress = rng1.getProgress();
             const stats = rng1.getStats();
-            const poolSize = stats.entropyPoolSize + stats.timerDeltasSize;
-            const percentage = Math.min(100, (poolSize / TARGET_EVENTS) * 100);
+            const weightedEvents = progress.currentEvents;
+            const percentage = progress.percentage;
             
-            // Update bar
             document.getElementById('entropyBarFill').style.width = percentage + '%';
-            document.getElementById('entropyBarText').textContent = `${poolSize} / ${TARGET_EVENTS}`;
+            document.getElementById('entropyBarText').textContent = `${weightedEvents} / ${TARGET_EVENTS}`;
             
-            // Update stats
-            document.getElementById('entropyPoolSize').textContent = poolSize;
+            document.getElementById('eventKeyboard').textContent = stats.eventCount.keyboard;
+            document.getElementById('eventMouse').textContent = stats.eventCount.mouse;
+            document.getElementById('eventTouch').textContent = stats.eventCount.touch;
+            document.getElementById('eventScroll').textContent = stats.eventCount.scroll;
+            document.getElementById('eventOther').textContent = stats.eventCount.other;
             
-            // Calculate rate
+            document.getElementById('entropyWeighted').textContent = weightedEvents;
+            
             const elapsed = (Date.now() - startTime) / 1000;
-            currentRate = Math.round(poolSize / elapsed);
+            const currentRate = Math.round(weightedEvents / elapsed);
             document.getElementById('entropyRate').textContent = currentRate;
             
-            // Calculate ETA
-            const remaining = TARGET_EVENTS - poolSize;
+            const remaining = TARGET_EVENTS - weightedEvents;
             let eta = '~0s';
             if (currentRate > 0 && remaining > 0) {
               const seconds = Math.ceil(remaining / currentRate);
@@ -878,40 +1045,37 @@
             }
             document.getElementById('entropyETA').textContent = eta;
             
-            // Update message
             const message = document.getElementById('entropyMessage');
-            if (poolSize >= TARGET_EVENTS) {
+            if (weightedEvents >= TARGET_EVENTS) {
               message.textContent = '✓ Entropy pool filled! Processing...';
               message.className = 'entropy-message good';
-            } else if (currentRate > 100) {
-              message.textContent = '🔥 Excellent! Keep going!';
+            } else if (stats.eventCount.keyboard > 50) {
+              message.textContent = '🔥 Excellent! Keyboard events are most efficient (×3)';
               message.className = 'entropy-message good';
             } else if (currentRate > 50) {
-              message.textContent = '👍 Good rate! Keep moving!';
+              message.textContent = '👍 Good rate! Keep interacting!';
               message.className = 'entropy-message';
             } else if (currentRate > 0) {
-              message.textContent = '⚠️ Move faster for better collection!';
+              message.textContent = '💡 Tip: Use keyboard for fastest collection (×3 weight)';
               message.className = 'entropy-message';
             } else {
-              message.textContent = '❗ Start moving your mouse!';
+              message.textContent = '● Start interacting with the page!';
               message.className = 'entropy-message';
             }
             
-            lastEventCount = poolSize;
+            lastEventCount = weightedEvents;
           }, 100);
           
-          // Wait for pool to fill
           updateStatus(
             'Collecting Entropy (ntrpRNG)',
-            '<span class="spinner"></span> Filling entropy pool to 5000 events...',
+            '<span class="spinner"></span> Collecting 500 weighted events...',
             15
           );
           
           await new Promise((resolve) => {
             const checkInterval = setInterval(() => {
-              const stats = rng1.getStats();
-              const poolSize = stats.entropyPoolSize + stats.timerDeltasSize;
-              if (poolSize >= TARGET_EVENTS) {
+              const progress = rng1.getProgress();
+              if (progress.ready) {
                 clearInterval(checkInterval);
                 clearInterval(monitorInterval);
                 resolve();
@@ -919,12 +1083,9 @@
             }, 100);
           });
           
-          // Hide collector
-          // collector.classList.remove('active');
-          
           updateStatus(
             'Entropy Collection Complete',
-            '✓ Full entropy pool collected (5000 events)!',
+            '✓ Full entropy pool collected (500 weighted events)!',
             25
           );
           
@@ -1010,4 +1171,4 @@
     }
   </script>
 </body>
-</html>
+</html> 
