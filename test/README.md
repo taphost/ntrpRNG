@@ -1,4 +1,4 @@
-# RNG Comparison Test Suite
+# RNG Comparison Test Suite V 1.1
 
 Interactive web-based testing suite for comparing **ntrpRNG** (behavioral entropy) vs **cgRNDV** (pure crypto) random number generators.
 
